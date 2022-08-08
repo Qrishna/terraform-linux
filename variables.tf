@@ -1,33 +1,37 @@
 variable "resource_group_name" {
-  default = "kb-test-resource_group"
+  default = "Supply-Chain-SandBox"
+}
+
+variable "resource_group_location" {
+  default = "southcentralus"
 }
 
 variable "virtual_network_name" {
-  default = "kb-virtual-network"
+  default = "supply-chain-sandbox-virtual-network"
 }
 
 variable "subnet_name" {
-  default = "kb-subnet"
+  default = "supply-chain-sandbox-subnet"
 }
 
 variable "public_ip" {
-  default = "kb-public-ip"
+  default = "supply-chain-sandbox-public-ip"
 }
 
 variable "network_security_group" {
-  default = "kb-network-security-group"
+  default = "supply-chain-sandbox-network-security-group"
 }
 
 variable "network_interface" {
-  default = "kb-network-interface"
+  default = "supply-chain-sandbox-network-interface"
 }
 
 variable "network_interface_ip_configuration" {
-  default = "kb-network-interface-ip-configuration"
+  default = "supply-chain-sandbox-network-interface-ip-configuration"
 }
 
 variable "vm_name" {
-  default = "kb-test-vm"
+  default = "supply-chain-sandbox-test-vm"
 }
 
 variable "vm_size" {
@@ -35,7 +39,7 @@ variable "vm_size" {
 }
 
 variable "vm_operating_systems_disk_name" {
-  default = "kb-os-disk"
+  default = "supply-chain-sandbox-os-disk"
 }
 
 variable "vm_admin_username" {

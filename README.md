@@ -77,6 +77,11 @@ terraform fmt
 terraform validate
 ```
 
+##### Plan
+```
+terraform plan
+```
+
 ##### Apply Terraform Configuration
 ```
 terraform apply
@@ -91,6 +96,11 @@ terraform show
 ##### Destroy resources managed by Terraform project
 ```
 terraform destroy
+```
+
+##### Passing variables via command line
+```
+terraform apply -var 'resource_group_name=Some_RG_Name' -var 'vm_size=Standard_B2s'
 ```
 
 ##### References
