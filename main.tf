@@ -15,7 +15,7 @@ provider "azurerm" {
 # Create a Resource group
 resource "azurerm_resource_group" "rg" {
   name     = var.resource_group_name
-  location = "westus2"
+  location = var.resource_group_location
 }
 
 # Create virtual network
@@ -40,6 +40,7 @@ resource "azurerm_public_ip" "myterraformpublicip" {
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   allocation_method   = "Static"
+  domain_name_label   = var.vm_name
 }
 
 # Create Network Security Group and rule
@@ -56,6 +57,28 @@ resource "azurerm_network_security_group" "myterraformnsg" {
     protocol                   = "Tcp"
     source_port_range          = "*"
     destination_port_range     = "22"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
+  security_rule {
+    name                       = "Kubernetes"
+    priority                   = 1002
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "6443"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
+  security_rule {
+    name                       = "additional_services"
+    priority                   = 1003
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_ranges    = [5901,5671,5672,15672,5341,6379,9411]
     source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
@@ -83,7 +106,7 @@ resource "azurerm_network_interface_security_group_association" "myterraformsecu
 
 
 resource "azurerm_ssh_public_key" "example" {
-  name                = "kb-ssh-key"
+  name                = "ssh-key"
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   public_key          = file("~/.ssh/ansible_rsa.pub")
